@@ -1,4 +1,4 @@
-package library.collection;
+import library.collection.Book;
 
 import java.util.HashSet;
 import java.util.Set;

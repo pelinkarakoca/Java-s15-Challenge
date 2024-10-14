@@ -1,4 +1,3 @@
-import library.collection.Author;
 import library.collection.Book;
 
 import java.util.ArrayList;
