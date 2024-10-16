@@ -1,3 +1,5 @@
+package library.admin;
+
 import library.collection.Book;
 
 import java.util.LinkedList;
@@ -100,7 +102,7 @@ public class Member extends Person {
 	}
 
 	public void returnBook(long bookId) {
-		borrowedBooks.removeIf(book -> (book.getBook_ID() == bookId));
+		borrowedBooks.removeIf(book -> (book.getId() == bookId));
 	}
 
 	public void showBooks() {
@@ -115,7 +117,7 @@ public class Member extends Person {
 
 	@Override
 	public String toString() {
-		return "Member{" +
+		return "library.admin.Member{" +
 				"borrowedBooks=" + borrowedBooks +
 				", balance=" + balance +
 				", memberId=" + memberId +

@@ -1,3 +1,5 @@
+package library.admin;
+
 public enum MembershipType {
 	STUDENT(2), INSTRUCTOR(5), OTHER(1);
 	private final int maxLimit;

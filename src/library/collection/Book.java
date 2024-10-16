@@ -1,48 +1,48 @@
 package library.collection;
-import java.util.Date;
-import java.util.Optional;
-public class Book {
-	private long book_ID;
+
+import library.admin.Author;
+
+import java.time.LocalDate;
+
+public class Book extends LibraryCollection {
 	private int year;
-	private String title;
 	private boolean isAvailable;
 	private double fee;
-	private int numOfPages;
 	private int edition;
-	private String language;
-	private String author;
-	private Optional<Date> withdrawDate;
+	private Author author;
+	private Category category;
+	private LocalDate withdrawDate;
 	private Rarity rarity;
 
-
-	public Book(long book_ID, String title, boolean isAvailable, double fee, int numOfPages, int edition, String language, String author, int year) {
-		this.book_ID = book_ID;
-		this.title = title;
+	public Book(String title, boolean isAvailable, double fee, int numOfPages, int edition, String language, Author author, int year, Category category) {
+		super(title, language, numOfPages);
 		this.isAvailable = isAvailable;
-		this.numOfPages = numOfPages;
 		this.edition = edition;
-		this.language = language;
 		this.author = author;
 		this.year = year;
 		this.rarity = calculateRarity();
 		this.fee = fee * rarity.getCoefficient();
+		this.category = category;
 	}
 
 	public int getYear() {
 		return year;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	public void setYear(int year) {
 		this.year = year;
+		this.rarity = calculateRarity();
+		this.fee = getFee() * rarity.getCoefficient();
 	}
 
-	public long getBook_ID() {
-		return book_ID;
-	}
-
-	public String getTitle() {
-		return title;
-	}
 
 	public boolean isAvailable() {
 		return isAvailable;
@@ -52,60 +52,40 @@ public class Book {
 		return fee;
 	}
 
-	public Optional<Date> getWithdrawDate() {
+	public LocalDate getWithdrawDate() {
 		return withdrawDate;
 	}
 
-	// TODO
-	public void setWithdrawDate(Optional<Date> withdrawDate) {
+	public void setWithdrawDate(LocalDate withdrawDate) {
 		this.withdrawDate = withdrawDate;
-	}
-
-	public int getNumOfPages() {
-		return numOfPages;
 	}
 
 	public int getEdition() {
 		return edition;
 	}
 
-	public String getLanguage() {
-		return language;
-	}
 
-	public String getAuthor() {
+	public Author getAuthor() {
 		return author;
 	}
 
-	public void setBook_ID(long book_ID) {
-		this.book_ID = book_ID;
-	}
 
 	public void setAvailability(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
 
 	public void setFee(double fee) {
-		this.fee = fee;
-	}
-
-	public void setNumOfPages(int numOfPages) {
-		this.numOfPages = numOfPages;
+		this.fee = fee * rarity.getCoefficient();
 	}
 
 	public void setEdition(int edition) {
 		this.edition = edition;
+		this.rarity = calculateRarity();
+		this.fee = getFee() * rarity.getCoefficient();
 	}
 
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
-	public void setAuthor(String author) {
+	public void setAuthorId(Author author) {
 		this.author = author;
 	}
 
@@ -141,14 +121,14 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book{" +
-				"book_ID=" + book_ID +
-				", title='" + title + '\'' +
+				"book_ID=" + getId() +
+				", title='" + getTitle() + '\'' +
 				", isAvailable=" + isAvailable +
 				", fee=" + fee +
-				", numOfPages=" + numOfPages +
+				", numOfPages=" + getNumOfPages() +
 				", edition=" + edition +
-				", language='" + language + '\'' +
-				", author=" + author +
+				", language='" + getLanguage() + '\'' +
+				", author=" + author+
 				'}';
 	}
 }
